@@ -2,7 +2,7 @@
 Projet de EDD
 -------------
 
-Allez dans build
-Faites : cmake ..
-Puis : make
-libgrid.a est alors dans le dossier src créer dans le build.
+- Créez un dossier build
+- Faites dans build : cmake ..
+- Puis : make
+- libgrid.a est alors dans le dossier src créer dans le build.
