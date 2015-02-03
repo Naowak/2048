@@ -1,0 +1,5 @@
+cmake_minimum_required (VERSION 2.6)
+project(2048)
+add_definitions(-std=c99)
+include_directories(${2048_SOURCE_DIR}/include)
+add_subdirectory(src)

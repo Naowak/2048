@@ -8,16 +8,16 @@ struct grid_s{
 	tile tab[GRID_SIDE][GRID_SIDE];
 };
 
-static int rand(int a, int b){
+static int random(int a, int b){
 	return rand()%(b-a) +a;
 }
 
-static void add_tile(grid g){
+void add_tile(grid g){
 	int i = -1;
 	int j = -1;
 	while(i == -1 && j == -1){
-		i = rand(0, GRID_SIDE);
-		j = rand(0, GRID_SIDE);
+		i = random(0, GRID_SIDE);
+		j = random(0, GRID_SIDE);
 		if(g->tab[i][j] != 0){
 			i = -1;
 			j = -1;
@@ -25,7 +25,7 @@ static void add_tile(grid g){
 
 	}
 
-	int nb = rand(0, 6);
+	int nb = random(0, 6);
 	switch(nb){
 		case 5 : 
 			g->tab[i][j] = 2;
@@ -39,7 +39,7 @@ static void add_tile(grid g){
 grid new_grid(){
 
 	grid g = malloc(sizeof(*g));
-	assert(g != null);
+	assert(g != NULL);
 	for (int i = 0; i < GRID_SIDE; i++)
 		for (int j = 0; j < GRID_SIDE; j++)
 			g->tab[i][j] = 0;
@@ -51,13 +51,13 @@ grid new_grid(){
 }
 
 void delete_grid(grid g){
-	free g;
+	free(g);
 }
 
 void copy_grid(grid src, grid dst){
 	for (int i = 0; i < GRID_SIDE; i++)
 		for (int j = 0; j < GRID_SIDE; j++)
-			dst->tab[i][j] = grid[i][j];
+			dst->tab[i][j] = src->tab[i][j];
 }
 
 unsigned long int grid_score(grid g){
@@ -66,7 +66,7 @@ unsigned long int grid_score(grid g){
 	for (int i = 0; i < GRID_SIDE; i++)
 		for (int j = 0; j < GRID_SIDE; j++)
 			if(g->tab[i][j]>max)
-				max = g->[i][j];
+				max = g->tab[i][j];
 
 	return max;
 }
