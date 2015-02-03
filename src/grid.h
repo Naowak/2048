@@ -5,7 +5,6 @@
  * \brief Contains structures and functions needed to play 2048 game.
  **/
 
-
 #include <stdbool.h>
 
 /** Grid dimension */
