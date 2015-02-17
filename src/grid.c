@@ -26,13 +26,11 @@ void add_tile(grid g){
 			i = -1;
 			j = -1;
 		}
-
 	}
-
 	//Definition de la valeur de la case
-	int nb = random(0, 6);
+	int nb = random(0, 9);
 	switch(nb){
-		case 5 : 
+		case 9 : 
 			g->tab[i][j] = 2;
 			break;
 
@@ -85,6 +83,38 @@ void set_tile(grid g, int x, int y, tile t){
 	g->tab[x][y] = t;
 }
 
+bool can_move(grid g, dir d){
+	switch(d){
+		case UP : 
+			for(int i = 0; i < GRID_SIDE; i++)
+				for(int j = 0; j < GRID_SIDE - 1; j ++)
+					if(g->tab[i][j] == g->tab[i][j+1] || (g->tab[i][j] == 0 && g->tab[i][j+1]))
+						return true;
+			break;
+
+		case DOWN :
+			for(int i = 0; i < GRID_SIDE; i++)
+				for(int j = GRID_SIDE - 1; j > 0; j--)
+					if(g->tab[i][j] == g->tab[i][j-1] || (g->tab[i][j] == 0 && g->tab[i][j-1]))
+						return true;
+			break;
+
+		case RIGHT :
+			for(int j = 0; j < GRID_SIDE; j++)
+				for(int i = GRID_SIDE - 1; i > 0; i--)
+					if(g->tab[i][j] == g->tab[i-1][j] || (g->tab[i][j] == 0 && g->tab[i-1][j]))
+						return true;
+			break;
+
+		case LEFT :
+			for(int j = 0; j < GRID_SIDE; j++)
+				for(int i = 0; i < GRID_SIDE - 1; i ++)
+					if(g->tab[i][j] == g->tab[i+1][j] || (g->tab[i][j] == 0 && g->tab[i+1][j]))
+						return true;
+	return false;
+	}
+}
+
 bool game_over(grid g){
 	if(!can_move(g, UP) && !can_move(g, DOWN) && !can_move(g, LEFT) && !can_move(g, RIGHT))
 		return true;
@@ -104,7 +134,4 @@ void display_grid(grid g){
 
 }
 
-bool can_move(grid g, dir d){
-	return 0;
-}
 
