@@ -25,9 +25,9 @@ void add_tile(grid g){
 
 	}
 
-	int nb = random(0, 6);
+	int nb = random(0, 9);
 	switch(nb){
-		case 5 : 
+		case 9 : 
 			g->tab[i][j] = 2;
 			break;
 
