@@ -79,10 +79,35 @@ void set_tile(grid g, int x, int y, tile t){
 	g->tab[x][y] = t;
 }
 
-// bool can_move(grid g, dir d){
-// 	switch(d){
-// 		case UP : 
+bool can_move(grid g, dir d){
+	switch(d){
+		case UP : 
+			for(int i = 0; i < GRID_SIDE; i++)
+				for(int j = 0; j < GRID_SIDE - 1; j ++)
+					if(g->tab[i][j] == g->tab[i][j+1] || (g->tab[i][j] == 0 && g->tab[i][j+1]))
+						return true;
+			break;
 
-// 	}
-// }
+		case DOWN :
+			for(int i = 0; i < GRID_SIDE; i++)
+				for(int j = GRID_SIDE - 1; j > 0; j--)
+					if(g->tab[i][j] == g->tab[i][j-1] || (g->tab[i][j] == 0 && g->tab[i][j-1]))
+						return true;
+			break;
+
+		case RIGHT :
+			for(int j = 0; j < GRID_SIDE; j++)
+				for(int i = GRID_SIDE - 1; i > 0; i--)
+					if(g->tab[i][j] == g->tab[i-1][j] || (g->tab[i][j] == 0 && g->tab[i-1][j]))
+						return true;
+			break;
+
+		case LEFT :
+			for(int j = 0; j < GRID_SIDE; j++)
+				for(int i = 0; i < GRID_SIDE - 1; i ++)
+					if(g->tab[i][j] == g->tab[i+1][j] || (g->tab[i][j] == 0 && g->tab[i+1][j]))
+						return true;
+	return false;
+	}
+}
 
