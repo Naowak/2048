@@ -79,6 +79,14 @@ void set_tile(grid g, int x, int y, tile t){
 	g->tab[x][y] = t;
 }
 
+bool game_over(grid g){
+	if(!can_move(g, UP) && !can_move(g, DOWN) && !can_move(g, LEFT) && !can_move(g, RIGHT))
+		return true;
+
+	return false;
+}
+
+
 // bool can_move(grid g, dir d){
 // 	switch(d){
 // 		case UP : 
