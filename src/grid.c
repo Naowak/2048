@@ -170,7 +170,7 @@ void do_move(grid g, dir d){
 				}
 			break;
 
-		case RIGHT
+		case RIGHT :
 			for (int j = 0; j < GRID_SIDE; j++)
 				for (int i = GRID_SIDE - 1; i > 0; i--)
 				{
