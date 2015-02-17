@@ -125,6 +125,8 @@ void add_tile (grid g);
  */
 void play (grid g, dir d);
 
+void display_grid(grid g);
+
 
 
 #endif
