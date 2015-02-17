@@ -111,3 +111,10 @@ bool can_move(grid g, dir d){
 	}
 }
 
+bool game_over(grid g){
+	if(!can_move(g, UP) && !can_move(g, DOWN) && !can_move(g, LEFT) && !can_move(g, RIGHT))
+		return true;
+
+	return false;
+}
+
