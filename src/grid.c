@@ -118,3 +118,98 @@ bool game_over(grid g){
 	return false;
 }
 
+void do_move(grid g, dir d){
+	switch(d){
+		case UP :
+			for (int i = 0; i < GRID_SIDE; i++)
+				for (int j = 0; j < GRID_SIDE - 1; j++)
+				{
+					if(g->tab[i][j] == 0){
+						int k = j + 1;
+						while(k != GRID_SIDE){
+							if(g->tab[i][k] == 0)
+								k++;
+							else{
+								g->tab[i][j] = g->tab[j][k];
+								g->tab[j][k] = 0;
+								break;
+							}
+						}
+					}
+					else if(g->tab[i][j] == g->tab[i][j+1]){
+						g->tab[i][j] += 1;
+						g->tab[i][j+1] = 0;
+					}
+				}
+			break;
+
+		case DOWN :
+			for (int i = 0; i < GRID_SIDE; i++)
+				for (int j = GRID_SIDE - 1; j > 0; j--)
+				{
+					if(g->tab[i][j] == 0){
+						int k = j - 1;
+						while(k != 0){
+							if(g->tab[i][k] == 0)
+								k--;
+							else{
+								g->tab[i][j] = g->tab[i][k];
+								g->tab[i][k] = 0;
+								break;
+							}
+						}
+					}
+					else if(g->tab[i][j] == g->tab[i][j-1]){
+						g->tab[i][j] += 1;
+						g->tab[i][j-1] = 0;
+					}
+				}
+			break;
+
+		case RIGHT
+			for (int j = 0; j < GRID_SIDE; j++)
+				for (int i = GRID_SIDE - 1; i > 0; i--)
+				{
+					if(g->tab[i][j] == 0){
+						int k = i - 1;
+						while(k != 0){
+							if(g->tab[k][j] == 0)
+								k--;
+							else{
+								g->tab[i][j] = g->tab[k][j];
+								g->tab[k][j] = 0;
+								break;
+							}
+						}
+					}
+					else if(g->tab[i][j] == g->tab[i-1][j]){
+						g->tab[i][j] += 1;
+						g->tab[i-1][j] = 0;
+					}
+				}
+			break;
+
+		case LEFT :
+			for (int j = 0; j < GRID_SIDE; j++)
+				for (int i = 0; i < GRID_SIDE - 1; i++)
+				{
+					if(g->tab[i][j] == 0){
+						int k = i + 1;
+						while(k != GRID_SIDE){
+							if(g->tab[k][j] == 0)
+								k++;
+							else{
+								g->tab[i][j] = g->tab[k][j];
+								g->tab[k][j] = 0;
+								break;
+							}
+						}
+					}
+					else if(g->tab[i][j] == g->tab[i+1][j]){
+						g->tab[i][j] += 1;
+						g->tab[i+1][j] = 0;
+					}
+				}
+	}
+}
+
