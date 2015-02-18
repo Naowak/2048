@@ -47,7 +47,6 @@ grid new_grid(){
 		for (int j = 0; j < GRID_SIDE; j++)
 			g->tab[i][j] = 0;
 
-
 	add_tile(g);
 	add_tile(g);
 
@@ -87,32 +86,33 @@ bool can_move(grid g, dir d){
 	switch(d){
 		case UP : 
 			for(int i = 0; i < GRID_SIDE; i++)
-				for(int j = 0; j < GRID_SIDE - 1; j ++)
-					if(g->tab[i][j] == g->tab[i][j+1] || (g->tab[i][j] == 0 && g->tab[i][j+1]))
+				for(int j = 0; j < GRID_SIDE - 1; j++)
+					if(g->tab[i][j+1] != 0 && (g->tab[i][j] == g->tab[i][j+1] || g->tab[i][j] == 0))
 						return true;
 			break;
 
 		case DOWN :
 			for(int i = 0; i < GRID_SIDE; i++)
 				for(int j = GRID_SIDE - 1; j > 0; j--)
-					if(g->tab[i][j] == g->tab[i][j-1] || (g->tab[i][j] == 0 && g->tab[i][j-1]))
+					if(g->tab[i][j-1] != 0 && (g->tab[i][j] == g->tab[i][j-1] || g->tab[i][j] == 0))
 						return true;
 			break;
 
 		case RIGHT :
 			for(int j = 0; j < GRID_SIDE; j++)
 				for(int i = GRID_SIDE - 1; i > 0; i--)
-					if(g->tab[i][j] == g->tab[i-1][j] || (g->tab[i][j] == 0 && g->tab[i-1][j]))
+					if(g->tab[i-1][j] != 0 && (g->tab[i][j] == g->tab[i-1][j] || g->tab[i][j] == 0))
 						return true;
 			break;
 
 		case LEFT :
 			for(int j = 0; j < GRID_SIDE; j++)
-				for(int i = 0; i < GRID_SIDE - 1; i ++)
-					if(g->tab[i][j] == g->tab[i+1][j] || (g->tab[i][j] == 0 && g->tab[i+1][j]))
+				for(int i = 0; i < GRID_SIDE - 1; i++)
+					if(g->tab[i+1][j] != 0 && (g->tab[i][j] == g->tab[i+1][j] || g->tab[i][j] == 0))
 						return true;
-	return false;
 	}
+	printf("\n false \n");
+	return false;
 }
 
 bool game_over(grid g){
@@ -122,109 +122,117 @@ bool game_over(grid g){
 	return false;
 }
 
-void do_move(grid g, dir d){
+static void decalageRecursion(grid g, dir d, int i, int j){
 	switch(d){
 		case UP :
-			for (int i = 0; i < GRID_SIDE; i++)
-				for (int j = 0; j < GRID_SIDE - 1; j++)
-				{
-					if(g->tab[i][j] == 0){
-						int k = j + 1;
-						while(k != GRID_SIDE){
-							if(g->tab[i][k] == 0)
-								k++;
-							else{
-								g->tab[i][j] = g->tab[j][k];
-								g->tab[j][k] = 0;
-								break;
-							}
-						}
-					}
-					else if(g->tab[i][j] == g->tab[i][j+1]){
+			if(j > 0 && g->tab[i][j-1] == 0){
+				g->tab[i][j-1] = g->tab[i][j];
+				g->tab[i][j] = 0;
+				decalageRecursion(g, d, i, j-1);
+			}
+			break;
+		case DOWN :
+			if(j < GRID_SIDE-1 && g->tab[i][j+1] == 0){
+				g->tab[i][j+1] = g->tab[i][j];
+				g->tab[i][j] = 0;
+				decalageRecursion(g, d, i, j+1);
+			}
+			break;
+		case LEFT :
+			if(i > 0 && g->tab[i-1][j] == 0){
+				g->tab[i-1][j] = g->tab[i][j];
+				g->tab[i][j] = 0;
+				decalageRecursion(g, d, i-1, j);
+			}
+			break;
+		case RIGHT :
+			if(i < GRID_SIDE - 1 && g->tab[i+1][j] == 0){
+				g->tab[i+1][j] = g->tab[i][j];
+				g->tab[i][j] = 0;
+				decalageRecursion(g, d, i+1, j);
+			}
+		}
+}
+
+static void additionSelonMouvement(grid g, dir d){
+	switch(d){
+		case UP :
+			for(int i = 0; i < GRID_SIDE; i++)
+				for(int j = 0; j < GRID_SIDE-1; j++)
+					if(g->tab[i][j] != 0 && g->tab[i][j] == g->tab[i][j+1]){
 						g->tab[i][j] += 1;
 						g->tab[i][j+1] = 0;
+						j++;
 					}
-				}
 			break;
-
 		case DOWN :
-			for (int i = 0; i < GRID_SIDE; i++)
-				for (int j = GRID_SIDE - 1; j > 0; j--)
-				{
-					if(g->tab[i][j] == 0){
-						int k = j - 1;
-						while(k != 0){
-							if(g->tab[i][k] == 0)
-								k--;
-							else{
-								g->tab[i][j] = g->tab[i][k];
-								g->tab[i][k] = 0;
-								break;
-							}
-						}
-					}
-					else if(g->tab[i][j] == g->tab[i][j-1]){
+			for(int i = 0; i < GRID_SIDE; i++)
+				for(int j = GRID_SIDE-1; j > 0; j--)
+					if(g->tab[i][j] != 0 && g->tab[i][j] == g->tab[i][j-1]){
 						g->tab[i][j] += 1;
 						g->tab[i][j-1] = 0;
+						j--;
 					}
-				}
 			break;
-
 		case RIGHT :
-			for (int j = 0; j < GRID_SIDE; j++)
-				for (int i = GRID_SIDE - 1; i > 0; i--)
-				{
-					if(g->tab[i][j] == 0){
-						int k = i - 1;
-						while(k != 0){
-							if(g->tab[k][j] == 0)
-								k--;
-							else{
-								g->tab[i][j] = g->tab[k][j];
-								g->tab[k][j] = 0;
-								break;
-							}
-						}
-					}
-					else if(g->tab[i][j] == g->tab[i-1][j]){
+			for(int j = 0; j < GRID_SIDE; j++)
+				for(int i = GRID_SIDE-1; i > 0; i--)
+					if(g->tab[i][j] != 0 && g->tab[i][j] == g->tab[i-1][j]){
 						g->tab[i][j] += 1;
 						g->tab[i-1][j] = 0;
+						i--;
 					}
-				}
 			break;
-
 		case LEFT :
-			for (int j = 0; j < GRID_SIDE; j++)
-				for (int i = 0; i < GRID_SIDE - 1; i++)
-				{
-					if(g->tab[i][j] == 0){
-						int k = i + 1;
-						while(k != GRID_SIDE){
-							if(g->tab[k][j] == 0)
-								k++;
-							else{
-								g->tab[i][j] = g->tab[k][j];
-								g->tab[k][j] = 0;
-								break;
-							}
-						}
-					}
-					else if(g->tab[i][j] == g->tab[i+1][j]){
+			for(int j = 0; j < GRID_SIDE; j++)
+				for(int i = 0; i < GRID_SIDE - 1; i++)
+					if(g->tab[i][j] != 0 && g->tab[i][j] == g->tab[i+1][j]){
 						g->tab[i][j] += 1;
 						g->tab[i+1][j] = 0;
+						i++;
 					}
-				}
 	}
 }
 
+static void decalage(grid g, dir d){
+	switch(d){
+		case UP :
+			for(int i = 0; i < GRID_SIDE; i++)
+				for(int j = 1; j < GRID_SIDE; j++)
+					decalageRecursion(g, d, i, j);
+			break;
+		case DOWN :
+			for(int i = 0; i < GRID_SIDE; i++)
+				for(int j = GRID_SIDE-2; j >= 0; j--)
+					decalageRecursion(g, d, i, j);
+			break;
+		case RIGHT :
+			for(int j = 0; j < GRID_SIDE; j++)
+				for(int i = GRID_SIDE-2; i >= 0; i--)
+					decalageRecursion(g, d, i, j);
+			break;
+		case LEFT :
+			for(int j = 0; j < GRID_SIDE; j++)
+				for(int i = 1; i < GRID_SIDE; i++)
+					decalageRecursion(g, d, i, j);
+	}
+}
+
+void do_move(grid g, dir d){
+	decalage(g, d);
+	additionSelonMouvement(g, d);
+	decalage(g, d);
+}
+
+
+
 void display_grid(grid g){
-	system("clear");
-	for (int i = 0; i < GRID_SIDE; i++){
-		for (int j = 0; j < GRID_SIDE; j++){
+	//system("clear");
+	for (int j = 0; j < GRID_SIDE; j++){
+		for (int i = 0; i < GRID_SIDE; i++){
 			printf("| %d ", get_tile(g, i, j) == 0 ? 0 : (int)pow(2, get_tile(g, i, j)));
-			if(j ==  GRID_SIDE-1)
+			if(i ==  GRID_SIDE-1)
 				printf("|\n");
 		}
 	}
-
 }
