@@ -23,26 +23,30 @@ int main(){
 			scanf("%2s", d);
 		}
 
-		if(strcmp(d, "up")== 0)
+		if(strcmp(d, "up")== 0){
 			if(can_move(g, UP)){
 				do_move(g, UP);
 				add_tile(g);
 			}
-		if(strcmp(d, "do")== 0)
+		}
+		else if(strcmp(d, "do")== 0){
 			if(can_move(g, DOWN)){
 				do_move(g, DOWN);
 				add_tile(g);
 			}
-		if(strcmp(d, "le")== 0)
+		}
+		else if(strcmp(d, "le")== 0){
 			if(can_move(g, LEFT)){
 				do_move(g, LEFT);
 				add_tile(g);
 			}
-		if(strcmp(d, "ri")== 0)
+		}
+		else if(strcmp(d, "ri")== 0){
 			if(can_move(g, RIGHT)){
 				do_move(g, RIGHT);
 				add_tile(g);
 			}
+		}
 
 		display_grid(g);
 	}

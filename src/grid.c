@@ -111,7 +111,6 @@ bool can_move(grid g, dir d){
 					if(g->tab[i+1][j] != 0 && (g->tab[i][j] == g->tab[i+1][j] || g->tab[i][j] == 0))
 						return true;
 	}
-	printf("\n false \n");
 	return false;
 }
 
