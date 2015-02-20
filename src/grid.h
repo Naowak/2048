@@ -48,6 +48,11 @@ typedef enum dir_e {UP,LEFT,DOWN,RIGHT} dir;
 grid new_grid ();
 
 /**
+* \free the memory allocated for grid
+*/
+void free_grid(grid g);
+
+/**
  * \brief Destroy the grid and free allocated memory
  * \param g the grid to destroy
  */

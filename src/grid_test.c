@@ -3,16 +3,14 @@
 #include "grid.h"
 #include <string.h>
 
-grid g;
-
-bool validDir(char d[2]){
+static bool validDir(char d[2]){
 	if(strcmp(d, "up") == 0 || strcmp(d, "do")== 0 || strcmp(d, "ri")== 0 || strcmp(d, "le")== 0)
 		return true;
 	return false;
 }
 
 int main(){
-	g = new_grid();
+	grid g = new_grid();
 	display_grid(g);
 	char d[2] = "nu";
 	
@@ -24,31 +22,20 @@ int main(){
 		}
 
 		if(strcmp(d, "up")== 0){
-			if(can_move(g, UP)){
-				do_move(g, UP);
-				add_tile(g);
-			}
+			play(g, UP);
 		}
 		else if(strcmp(d, "do")== 0){
-			if(can_move(g, DOWN)){
-				do_move(g, DOWN);
-				add_tile(g);
-			}
+			play(g, DOWN);
 		}
 		else if(strcmp(d, "le")== 0){
-			if(can_move(g, LEFT)){
-				do_move(g, LEFT);
-				add_tile(g);
-			}
+			play(g, LEFT);
 		}
 		else if(strcmp(d, "ri")== 0){
-			if(can_move(g, RIGHT)){
-				do_move(g, RIGHT);
-				add_tile(g);
-			}
+			play(g, RIGHT);
 		}
 
 		display_grid(g);
 	}
-}
+
+	free_grid(g);}
 

@@ -3,6 +3,7 @@
 #include <time.h>
 #include <assert.h>
 #include <math.h>
+#include <string.h>
 #include "grid.h"
 
 struct grid_s{
@@ -51,6 +52,10 @@ grid new_grid(){
 	add_tile(g);
 
 	return g;
+}
+
+void free_grid(grid g){
+	free(g);
 }
 
 void delete_grid(grid g){
@@ -223,6 +228,13 @@ void do_move(grid g, dir d){
 	decalage(g, d);
 }
 
+void play(grid g, dir d){
+	if(can_move(g, d)){
+		do_move(g, d);
+		add_tile(g);
+	}
+}
+
 
 
 void display_grid(grid g){
@@ -235,3 +247,4 @@ void display_grid(grid g){
 		}
 	}
 }
+
