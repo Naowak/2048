@@ -13,6 +13,7 @@ int main(){
 	grid g = new_grid();
 	display_grid(g);
 	char d[2] = "nu";
+	initializeRandom();	
 	
 	while(!game_over(g)){
 		scanf("%2s", d);

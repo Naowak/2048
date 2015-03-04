@@ -11,7 +11,6 @@ struct grid_s{
 };
 
 static int random(int a, int b){
-	srand(time(NULL));
 	return rand()%(b-a) +a;
 }
 
@@ -246,5 +245,10 @@ void display_grid(grid g){
 				printf("|\n");
 		}
 	}
+	printf("\n");
+}
+
+void initializeRandom(){
+	srand(time(NULL));
 }
 

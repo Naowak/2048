@@ -132,6 +132,6 @@ void play (grid g, dir d);
 
 void display_grid(grid g);
 
-
+void initializeRandom();
 
 #endif
