@@ -22,12 +22,18 @@ int main(){
 	
 	while(!game_over(g)){
 		int r = random(0, 4);
-		printf("%d\n", r);
 		switch(r){
-			case 0 : play(g, UP); break;
-			case 1 : play(g, DOWN); break;
-			case 2 : play(g, LEFT) ; break;
+			case 0 : play(g, UP); 
+				printf("UP\n");
+				break;
+			case 1 : play(g, DOWN);
+				printf("DOWN\n");
+				break;
+			case 2 : play(g, LEFT);
+				printf("LEFT\n");
+				break;
 			case 3 : play(g, RIGHT);
+				printf("RIGHT\n");
 		}
 
 		display_grid(g);
