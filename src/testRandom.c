@@ -35,7 +35,7 @@ int main(){
 			case 3 : play(g, RIGHT);
 				printf("RIGHT\n");
 		}
-
+		printf("\nScore : %ld \n", grid_score(g));
 		display_grid(g);
 	}
 

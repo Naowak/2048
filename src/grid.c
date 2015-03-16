@@ -75,7 +75,7 @@ unsigned long int grid_score(grid g){
 			if(g->tab[i][j]>max)
 				max = g->tab[i][j];
 
-	return max;
+	return (unsigned long int)pow(2, max);
 }
 
 tile get_tile(grid g, int x, int y){
