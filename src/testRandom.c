@@ -35,6 +35,9 @@ int main(){
 			case 3 : play(g, RIGHT);
 				printf("RIGHT\n");
 		}
+	
+		if(grid_max_tile(g) == 2048)
+			printf("\n\n BRAVO, VOUS AVEZ ATTEINT LE SCORE DE 2048\n\n");
 		printf("\nScore : %ld \n", grid_score(g));
 		display_grid(g);
 	}

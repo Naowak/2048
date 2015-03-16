@@ -9,6 +9,7 @@
 struct grid_s{
 	tile tab[GRID_SIDE][GRID_SIDE];
 	unsigned long int score;
+	long int maxTile;
 };
 
 static int random(int a, int b){
@@ -45,6 +46,7 @@ grid new_grid(){
 	grid g = malloc(sizeof(*g));
 	assert(g != NULL);
 	g->score = 0;
+	g->maxTile = 0;
 	for (int i = 0; i < GRID_SIDE; i++)
 		for (int j = 0; j < GRID_SIDE; j++)
 			g->tab[i][j] = 0;
@@ -70,6 +72,10 @@ void copy_grid(grid src, grid dst){
 }
 
 unsigned long int grid_score(grid g){
+	return g->score;
+}
+
+long int grid_max_tile(grid g){
 	return (unsigned long int)pow(2, g->score);
 }
 
@@ -160,8 +166,9 @@ static void additionSelonMouvement(grid g, dir d){
 					if(g->tab[i][j] != 0 && g->tab[i][j] == g->tab[i][j+1]){
 						g->tab[i][j] += 1;
 						g->tab[i][j+1] = 0;
-						if(g->tab[i][j]>g->score)
-							g->score = g->tab[i][j];
+						if(g->tab[i][j]>g->maxTile)
+							g->maxTile = g->tab[i][j];
+						g->score += g->tab[i][j];
 						j++;
 					}
 			break;
@@ -171,8 +178,9 @@ static void additionSelonMouvement(grid g, dir d){
 					if(g->tab[i][j] != 0 && g->tab[i][j] == g->tab[i][j-1]){
 						g->tab[i][j] += 1;
 						g->tab[i][j-1] = 0;
-						if(g->tab[i][j]>g->score)
-							g->score = g->tab[i][j];
+						if(g->tab[i][j]>g->maxTile)
+							g->maxTile = g->tab[i][j];
+						g->score += g->tab[i][j];
 						j--;
 					}
 			break;
@@ -182,8 +190,9 @@ static void additionSelonMouvement(grid g, dir d){
 					if(g->tab[i][j] != 0 && g->tab[i][j] == g->tab[i-1][j]){
 						g->tab[i][j] += 1;
 						g->tab[i-1][j] = 0;
-						if(g->tab[i][j]>g->score)
-							g->score = g->tab[i][j];
+						if(g->tab[i][j]>g->maxTile)
+							g->maxTile = g->tab[i][j];
+						g->score += g->tab[i][j];
 						i--;
 					}
 			break;
@@ -193,8 +202,9 @@ static void additionSelonMouvement(grid g, dir d){
 					if(g->tab[i][j] != 0 && g->tab[i][j] == g->tab[i+1][j]){
 						g->tab[i][j] += 1;
 						g->tab[i+1][j] = 0;
-						if(g->tab[i][j]>g->score)
-							g->score = g->tab[i][j];
+						if(g->tab[i][j]>g->maxTile)
+							g->maxTile = g->tab[i][j];
+						g->score += g->tab[i][j];
 						i++;
 					}
 	}

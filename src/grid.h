@@ -73,6 +73,13 @@ void copy_grid (grid src, grid dst);
  */
 unsigned long int grid_score (grid g);
 
+/**
+ * \brief Get grid's max tile
+ * \param g the grid
+ * \return the computed greatest tile during the game
+ */
+long int grid_max_tile(grid g);
+
 
 /**
  * \brief Get tile  (log_2-encoded) from the grid by specifying his coordinates
