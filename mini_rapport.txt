@@ -2,3 +2,35 @@ Toutes les fonctions (dont la déclaration était donnée dans le fichier grid.h
 Le jeu fonctionne correctement. Aucune erreur/bug n'a été trouvé malgré nos tests. 
 Actuellement le jeu ne fonctionne que grâce a un fichier test temporaire (qui contient le main), d'où le fait qu'il ne soit pas compliqué avec Cmake comme le sont les librairies.
 Il ne fonctionne cependant qu'en console, et ça n'a rien de très beau. Une interface graphique doit donc être faites. Probablement en SDL.
+
+SUITE RAPPORT
+
+Ajouté depuis la dernière fois :
+
+Nous avons fait un fichier de test "testRandom" qui joue de manière aléatoire et qui termine la partie instentanément. Le jeu termine son éxecution lorsque le joueur a perdu.
+
+Nous calculons le score (somme de toutes les valeurs obtenues par des additions) et nous l'affichons a tout moment.
+
+Nous affichons un message lorsque le joueur atteint une tile de valeur 2048, cela ne stoppe pas l'éxecution du jeu.
+
+Tout semble fonctionner correctement et rapidement d'apres nos tests.
+
+Répartition du travail :
+
+Yannis : decalageRecursion() + decalage() + do_move() + play() + additionSelonMouvement() + gestion du cmake
+
+Yannis + Baptiste : Can_move
+
+Antoine : grid_test.c + add_tile() + new_grid()
+
+Antoine + Baptiste : testRandom.c + display_grid()
+
+
+Qui va faire quoi : 
+
+Antoine : importation et compilation de la SDL 2.O + rendering
+
+Baptiste : rendering + animations
+
+Yannis : rendering + animations
+
