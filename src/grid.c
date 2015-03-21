@@ -57,10 +57,6 @@ grid new_grid(){
 	return g;
 }
 
-void free_grid(grid g){
-	free(g);
-}
-
 void delete_grid(grid g){
 	free(g);
 }
@@ -76,7 +72,7 @@ unsigned long int grid_score(grid g){
 }
 
 long int grid_max_tile(grid g){
-	return (unsigned long int)pow(2, g->score);
+	return (unsigned long int)pow(2, g->maxTile);
 }
 
 tile get_tile(grid g, int x, int y){
@@ -168,7 +164,7 @@ static void additionSelonMouvement(grid g, dir d){
 						g->tab[i][j+1] = 0;
 						if(g->tab[i][j]>g->maxTile)
 							g->maxTile = g->tab[i][j];
-						g->score += g->tab[i][j];
+						g->score += pow(2, g->tab[i][j]);
 						j++;
 					}
 			break;
@@ -180,7 +176,7 @@ static void additionSelonMouvement(grid g, dir d){
 						g->tab[i][j-1] = 0;
 						if(g->tab[i][j]>g->maxTile)
 							g->maxTile = g->tab[i][j];
-						g->score += g->tab[i][j];
+						g->score += pow(2, g->tab[i][j]);
 						j--;
 					}
 			break;
@@ -192,7 +188,7 @@ static void additionSelonMouvement(grid g, dir d){
 						g->tab[i-1][j] = 0;
 						if(g->tab[i][j]>g->maxTile)
 							g->maxTile = g->tab[i][j];
-						g->score += g->tab[i][j];
+						g->score += pow(2, g->tab[i][j]);
 						i--;
 					}
 			break;
@@ -204,7 +200,7 @@ static void additionSelonMouvement(grid g, dir d){
 						g->tab[i+1][j] = 0;
 						if(g->tab[i][j]>g->maxTile)
 							g->maxTile = g->tab[i][j];
-						g->score += g->tab[i][j];
+						g->score += pow(2, g->tab[i][j]);
 						i++;
 					}
 	}
@@ -259,6 +255,7 @@ void display_grid(grid g){
 		}
 	}
 	printf("\n");
+
 }
 
 void initializeRandom(){

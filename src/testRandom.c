@@ -42,6 +42,6 @@ int main(){
 		display_grid(g);
 	}
 
-	free_grid(g);
+	delete_grid(g);
 }
 

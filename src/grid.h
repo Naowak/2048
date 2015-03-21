@@ -37,7 +37,7 @@ typedef unsigned int tile;
 /**
  * \brief List of accepted movement in the game
  */
-typedef enum dir_e {UP,LEFT,DOWN,RIGHT} dir;
+typedef enum dir_e {UP,LEFT,RIGHT,DOWN} dir;
 
 
 
@@ -46,11 +46,6 @@ typedef enum dir_e {UP,LEFT,DOWN,RIGHT} dir;
  * \return created an empty grid with score equal to 0
  */
 grid new_grid ();
-
-/**
-* \free the memory allocated for grid
-*/
-void free_grid(grid g);
 
 /**
  * \brief Destroy the grid and free allocated memory
