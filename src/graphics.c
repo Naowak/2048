@@ -8,6 +8,9 @@
 #include "grid.h"
 #include "graphics.h"
 
+int TAILLE_CASE = 70;
+int TAILLE_ESPACE_ENTRE_CASE = 5;
+
 struct window_s{
 	int size_w;
 	int size_h;
@@ -20,9 +23,8 @@ window new_window(){
 	window w = malloc(sizeof(*w));
 	assert(w != NULL);
 
-	w->screen = NULL;
-	w->size_w = 50*GRID_SIDE + 5*(GRID_SIDE - 1) + 150;
-	w->size_h = 50*GRID_SIDE + 5*(GRID_SIDE - 1) + 60;
+	w->size_w = TAILLE_CASE*GRID_SIDE + TAILLE_ESPACE_ENTRE_CASE*(GRID_SIDE - 1) + 150;
+	w->size_h = TAILLE_CASE*GRID_SIDE + TAILLE_ESPACE_ENTRE_CASE*(GRID_SIDE - 1) + 60;
 
 	assert(SDL_Init(SDL_INIT_VIDEO) != -1);
 	//assert(TTF_Init() != -1); pour ecrire le score
@@ -94,13 +96,13 @@ void display_screen(window w, grid g){
 			sprintf(str, "../img/%d.png",(int) pow(2,get_tile(g, i, j)));
 			img = IMG_Load(str);
 			SDL_BlitSurface(img, NULL, w->screen, &coord);
-			coord.x += 55;
+			SDL_FreeSurface(img);
+			coord.x += TAILLE_CASE + TAILLE_ESPACE_ENTRE_CASE;
 		}
 		coord.x = 30;
-		coord.y += 55;
+		coord.y += TAILLE_CASE + TAILLE_ESPACE_ENTRE_CASE;
 	}
 
-	SDL_FreeSurface(img);
 	free(str);
 	SDL_Flip(w->screen);
 }
