@@ -7,9 +7,9 @@
 
 int main(){
 
+	initializeRandom();	
 	grid g = new_grid();
 	window w = new_window();
-	initializeRandom();	
 
 	bool win = false;
 	dir d;

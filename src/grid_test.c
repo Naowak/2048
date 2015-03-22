@@ -11,10 +11,10 @@ static bool validDir(char d[2]){
 
 int main(){
 
+	initializeRandom();
 	grid g = new_grid();
 	display_grid(g);
 	char d[2] = "nu";
-	initializeRandom();
 	bool win = false;
 
 	while(!game_over(g)){
