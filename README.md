@@ -24,7 +24,6 @@ Projet de EDD
 Erreurs connues et modifications a effectuées :
 
 - Lorsque l'on test valgrind sur le 2048_graphics, on a pas mal de perte de mémoire. Il faut regarder où...
-- Le jeu, peut importe que ce soit en version graphique ou console, commence TOUJOURS avec la même configuration... Un probleme avec l'initalisation de random ? 
 
 
 
