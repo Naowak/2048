@@ -16,7 +16,6 @@ int main(){
 	dir d;
 
 	display_screen(w, g);
-	display_grid(g);
 	
 	while(!game_over(g)){
 
