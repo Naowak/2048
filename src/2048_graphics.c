@@ -2,6 +2,7 @@
 #include <stdlib.h> 
 #include <string.h>
 #include <SDL/SDL.h>
+#include <SDL/SDL_ttf.h>
 #include "grid.h"
 #include "graphics.h"
 
@@ -23,7 +24,7 @@ int main(){
 		play(g, d);
 		display_screen(w, g);
 
-		printf("\nScore : %ld \n", grid_score(g));
+		//printf("\nScore : %ld \n", grid_score(g));
 		//display_grid(g);
 
 		if(grid_max_tile(g) == 2048 && !win){
@@ -34,7 +35,7 @@ int main(){
 
 	delete_window(w);
 	delete_grid(g);
-	//TTF_Quit(); pour ecrire le score
+	TTF_Quit(); 
     SDL_Quit();
 
 }

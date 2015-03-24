@@ -2,7 +2,7 @@
 #include <stdlib.h> 
 #include <SDL/SDL.h>
 #include <SDL/SDL_image.h>
-//#include <SDL/SDL_ttf.h> pour ecrire le score
+#include <SDL/SDL_ttf.h> 
 #include <assert.h>
 #include <math.h>
 #include "grid.h"
@@ -30,7 +30,7 @@ window new_window(){
 	w->size_h = TAILLE_CASE*GRID_SIDE + TAILLE_ESPACE_ENTRE_CASE*(GRID_SIDE - 1) + 60;
 
 	assert(SDL_Init(SDL_INIT_VIDEO) != -1);
-	//assert(TTF_Init() != -1); pour ecrire le score
+	assert(TTF_Init() != -1);
 
 	w->screen = SDL_SetVideoMode(w->size_w, w->size_h, 32, SDL_HWSURFACE);
 
@@ -54,7 +54,7 @@ dir move_event(window w, grid g){
 	        case SDL_QUIT: 
 	        	delete_window(w);
 	        	delete_grid(g);
-	        	//TTF_Quit(); Pour écrire le score
+	        	TTF_Quit();
 	            SDL_Quit();
 	            exit(EXIT_SUCCESS);
 	            break;
@@ -91,6 +91,15 @@ static void img_display(window w, SDL_Surface* img, SDL_Rect coord, char* str){
 	SDL_FreeSurface(img);
 }
 
+static void text_display(window w, SDL_Surface* texte, SDL_Color couleur, SDL_Rect coord, char* str, char* police){
+	TTF_Font* Police =TTF_OpenFont(police, 30);
+	texte = TTF_RenderText_Blended(Police, str, couleur);
+    SDL_BlitSurface(texte, NULL, w->screen, &coord);
+
+    TTF_CloseFont(Police);
+    SDL_FreeSurface(texte);
+}
+
 void display_screen(window w, grid g){
 
 	SDL_FillRect(w->screen, NULL, SDL_MapRGB(w->screen->format, 70, 70, 70));
@@ -120,13 +129,23 @@ void display_screen(window w, grid g){
 void display_score(window w, grid g){
 	SDL_Rect coord;
 	SDL_Surface* img;
+	char* str = malloc(sizeof(char) * 10);
+	char* police = "../img/dk_butterfly.otf";
+	SDL_Color couleurNoire = {0, 0, 0};
 
 	coord.x = w->size_w - TAILLE_X_SCORE - TAILLE_ESPACE;
 	coord.y = 30;
 	img_display(w, img, coord, "../img/score.png");
 
-	
+	coord.x += 20;
+	coord.y += 20;
+	text_display(w, img, couleurNoire, coord, "Score :",  police);
 
+	coord.y += 40;
+	sprintf(str, "%d",	(int) grid_score(g));
+	text_display(w, img, couleurNoire, coord, str, police);
+
+    free(str);
 }
 
 

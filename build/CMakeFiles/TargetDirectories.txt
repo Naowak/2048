@@ -1,0 +1,2 @@
+/home/yannis/work/ed&pp1/2048/build/src/CMakeFiles/graphics.dir
+/home/yannis/work/ed&pp1/2048/build/src/CMakeFiles/grid.dir

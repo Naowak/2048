@@ -1,0 +1,2 @@
+/usr/bin/ar cr libgraphics.a  CMakeFiles/graphics.dir/graphics.c.o
+/usr/bin/ranlib libgraphics.a
