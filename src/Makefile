@@ -6,7 +6,7 @@ OUTFILE3= 2048_graphics
 OBJS1= grid_test.o
 OBJS2= testRandom.o
 OBJS3= 2048_graphics.o
-LDLIB= -lgrid -lgraphics -lm -lSDL -lSDL_image              #-lSDL_ttf pour charger la bibliotheque pour ecrire
+LDLIB= -lgrid -lgraphics -lm -lSDL -lSDL_image -lSDL_ttf 
 LDFLAGS= -L ../build/src
 
 all : test1 test2 jeu_graphique

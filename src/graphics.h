@@ -17,5 +17,8 @@ dir move_event (window w, grid g);
 void display_screen(window w, grid g);
 /* display the screen */
 
+void display_score(window w, grid g);
+/* display the score */
+
 
 #endif

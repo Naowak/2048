@@ -10,6 +10,9 @@
 
 int TAILLE_CASE = 70;
 int TAILLE_ESPACE_ENTRE_CASE = 5;
+int TAILLE_X_SCORE = 200;
+int TAILLE_Y_SCORE = 120;
+int TAILLE_ESPACE = 30;
 
 struct window_s{
 	int size_w;
@@ -23,7 +26,7 @@ window new_window(){
 	window w = malloc(sizeof(*w));
 	assert(w != NULL);
 
-	w->size_w = TAILLE_CASE*GRID_SIDE + TAILLE_ESPACE_ENTRE_CASE*(GRID_SIDE - 1) + 150;
+	w->size_w = TAILLE_CASE*GRID_SIDE + TAILLE_ESPACE_ENTRE_CASE*(GRID_SIDE - 1) + TAILLE_ESPACE*3+ TAILLE_X_SCORE;
 	w->size_h = TAILLE_CASE*GRID_SIDE + TAILLE_ESPACE_ENTRE_CASE*(GRID_SIDE - 1) + 60;
 
 	assert(SDL_Init(SDL_INIT_VIDEO) != -1);
@@ -82,6 +85,12 @@ dir move_event(window w, grid g){
 	}
 }
 
+static void img_display(window w, SDL_Surface* img, SDL_Rect coord, char* str){
+	img = IMG_Load(str);
+	SDL_BlitSurface(img, NULL, w->screen, &coord);
+	SDL_FreeSurface(img);
+}
+
 void display_screen(window w, grid g){
 
 	SDL_FillRect(w->screen, NULL, SDL_MapRGB(w->screen->format, 70, 70, 70));
@@ -94,18 +103,30 @@ void display_screen(window w, grid g){
 	for(int j = 0; j < GRID_SIDE; j++){
 		for(int i = 0; i < GRID_SIDE; i++){
 			sprintf(str, "../img/%d.png",(int) pow(2,get_tile(g, i, j)));
-			img = IMG_Load(str);
-			SDL_BlitSurface(img, NULL, w->screen, &coord);
-			SDL_FreeSurface(img);
+			img_display(w, img, coord, str);
 			coord.x += TAILLE_CASE + TAILLE_ESPACE_ENTRE_CASE;
 		}
 		coord.x = 30;
 		coord.y += TAILLE_CASE + TAILLE_ESPACE_ENTRE_CASE;
 	}
 
+	display_score(w, g);
+
 	free(str);
 	SDL_Flip(w->screen);
 }
 
+
+void display_score(window w, grid g){
+	SDL_Rect coord;
+	SDL_Surface* img;
+
+	coord.x = w->size_w - TAILLE_X_SCORE - TAILLE_ESPACE;
+	coord.y = 30;
+	img_display(w, img, coord, "../img/score.png");
+
+	
+
+}
 
 
