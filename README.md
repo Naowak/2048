@@ -2,7 +2,7 @@
 Projet de EDD
 -------------
 
-- Avant de chercher à compiler quoi que ce soit, veillez a ce que les bibliothèques SDL-1.2, SDL_Image et SDL_ttf soit installé sur votre machine.
+- Avant de chercher à compiler quoi que ce soit, veillez a ce que les bibliothèques SDL-1.2, SDL_Image et SDL_ttf soit installés sur votre machine.
 - Sinon, sur linux, vous pouvez les installés avec les commandes suivantes :
 	- sudo apt-get install libsdl1.2-dev   //Pour SDL-1.2
 	- sudo apt-get install libsdl-image1.2 libsdl-image1.2-dev  //Pour SDL_Image
