@@ -21,9 +21,11 @@ Projet de EDD
 
 -------------
 
-Erreurs connues et modifications a effectuées :
-
-- Lorsque l'on test valgrind sur le 2048_graphics, on a pas mal de perte de mémoire. Il faut regarder où...
+Ce qu'il reste à faire :
+- Dans l'interface graphique :
+	- Permettre à l'utilisateur de relancer une partie, pendant et une fois la partie perdu. (Facile)
+	- Afficher quand l'utilisateur à gagner (a fait 2048). (Facile)
+- Ajouter des stratégies, de manière propre ! 
 
 
 
