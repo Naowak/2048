@@ -24,9 +24,6 @@ int main(){
 		play(g, d);
 		display_screen(w, g);
 
-		//printf("\nScore : %ld \n", grid_score(g));
-		//display_grid(g);
-
 		if(grid_max_tile(g) == 2048 && !win){
 			printf("\n\n BRAVO, UNE DE VOS CASE EST EGALE A 2048, VOUS AVEZ GAGNE\n\n");
 			win = true;
