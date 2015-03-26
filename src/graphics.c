@@ -5,6 +5,7 @@
 #include <SDL/SDL_ttf.h> 
 #include <assert.h>
 #include <math.h>
+#include <stdbool.h>
 #include "grid.h"
 #include "graphics.h"
 
@@ -13,6 +14,8 @@ int TAILLE_ESPACE_ENTRE_CASE = 5;
 int TAILLE_X_SCORE = 200;
 int TAILLE_Y_SCORE = 120;
 int TAILLE_ESPACE = 30;
+int TAILLE_X_REJOUER = 100;
+int TAILLE_Y_REJOUER = 50;
 
 struct window_s{
 	int size_w;
@@ -100,33 +103,7 @@ static void text_display(window w, SDL_Surface* texte, SDL_Color couleur, SDL_Re
     SDL_FreeSurface(texte);
 }
 
-void display_screen(window w, grid g){
-
-	SDL_FillRect(w->screen, NULL, SDL_MapRGB(w->screen->format, 70, 70, 70));
-	SDL_Rect coord;
-	coord.x = 30;
-	coord.y = 30;
-	SDL_Surface* img;
-	char* str = malloc(sizeof(char) * 20);
-
-	for(int j = 0; j < GRID_SIDE; j++){
-		for(int i = 0; i < GRID_SIDE; i++){
-			sprintf(str, "../img/%d.png",(int) pow(2,get_tile(g, i, j)));
-			img_display(w, img, coord, str);
-			coord.x += TAILLE_CASE + TAILLE_ESPACE_ENTRE_CASE;
-		}
-		coord.x = 30;
-		coord.y += TAILLE_CASE + TAILLE_ESPACE_ENTRE_CASE;
-	}
-
-	display_score(w, g);
-
-	free(str);
-	SDL_Flip(w->screen);
-}
-
-
-void display_score(window w, grid g){
+static void display_score(window w, grid g){
 	SDL_Rect coord;
 	SDL_Surface* img;
 	char* str = malloc(sizeof(char) * 10);
@@ -148,4 +125,73 @@ void display_score(window w, grid g){
     free(str);
 }
 
+static void display_tiles(window w, grid g, SDL_Surface* img, SDL_Rect coord){
+	coord.x = 30;
+	coord.y = 30;
+	char* str = malloc(sizeof(char) * 20);
+
+	for(int j = 0; j < GRID_SIDE; j++){
+		for(int i = 0; i < GRID_SIDE; i++){
+			sprintf(str, "../img/%d.png",(int) pow(2,get_tile(g, i, j)));
+			img_display(w, img, coord, str);
+			coord.x += TAILLE_CASE + TAILLE_ESPACE_ENTRE_CASE;
+		}
+		coord.x = 30;
+		coord.y += TAILLE_CASE + TAILLE_ESPACE_ENTRE_CASE;
+	}
+
+	free(str);
+}
+
+void display_screen(window w, grid g){
+
+	SDL_FillRect(w->screen, NULL, SDL_MapRGB(w->screen->format, 70, 70, 70));
+	SDL_Rect coord;
+	SDL_Surface* img;
+
+	display_tiles(w, g, img, coord);
+	display_score(w, g);
+
+	SDL_Flip(w->screen);
+}
+
+static void display_rejouer(window w){
+	SDL_Surface* img;
+	SDL_Rect coord;
+	coord.x = w->size_w - TAILLE_X_REJOUER - TAILLE_ESPACE;
+	coord.y = w->size_h - TAILLE_Y_REJOUER - TAILLE_ESPACE;
+	img_display(w, img, coord, "../img/rejouer.png");
+
+	SDL_Flip(w->screen);
+}
+
+bool rejouer_event(window w, grid g){
+	display_rejouer(w);
+
+	while(1){
+		SDL_WaitEvent(&(w->event)); 
+
+	    switch(w->event.type) 
+	    {
+	        case SDL_QUIT: 
+	        	delete_window(w);
+	        	delete_grid(g);
+	        	TTF_Quit();
+	            SDL_Quit();
+	            exit(EXIT_SUCCESS);
+	            break;
+
+	        case SDL_MOUSEBUTTONUP:
+	        	if (w->event.button.button == SDL_BUTTON_LEFT && w->event.button.x > w->size_w - TAILLE_X_REJOUER - TAILLE_ESPACE && 
+	        		w->event.button.x < w->size_w - TAILLE_ESPACE && w->event.button.y > w->size_h - TAILLE_Y_REJOUER - TAILLE_ESPACE &&
+	        		w->event.button.y < w->size_h -TAILLE_ESPACE)
+	        		return true;
+	        	break;
+
+	        default :
+	        	break;
+	    }
+	}
+	return false;
+}
 

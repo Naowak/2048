@@ -8,26 +8,35 @@
 
 int main(){
 
-	initializeRandom();	
-	grid g = new_grid();
-	window w = new_window();
-
-	bool win = false;
+	bool win;
+	bool rejouer; 
 	dir d;
+	grid g;
+	window w;
+	initializeRandom();	
 
-	display_screen(w, g);
-	
-	while(!game_over(g)){
+	do{
+		rejouer = false;
+		win = false;
+		g = new_grid();
+		w = new_window();
 
-		d = move_event(w, g);
-		play(g, d);
 		display_screen(w, g);
 
-		if(grid_max_tile(g) == 2048 && !win){
-			printf("\n\n BRAVO, UNE DE VOS CASE EST EGALE A 2048, VOUS AVEZ GAGNE\n\n");
-			win = true;
+		while(!game_over(g)){
+
+			d = move_event(w, g);
+			play(g, d);
+			display_screen(w, g);
+
+			if(grid_max_tile(g) == 2048 && !win){
+				printf("\n\n BRAVO, UNE DE VOS CASE EST EGALE A 2048, VOUS AVEZ GAGNE\n\n");
+				win = true;
+			}
 		}
-	}
+
+		rejouer = rejouer_event(w, g);
+	} while(rejouer);
 
 	delete_window(w);
 	delete_grid(g);

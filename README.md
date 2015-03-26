@@ -24,7 +24,6 @@ Projet de EDD
 
 Ce qu'il reste à faire :
 - Dans l'interface graphique :
-	- Permettre à l'utilisateur de relancer une partie, pendant et une fois la partie perdu. (Facile)
 	- Afficher quand l'utilisateur à gagner (a fait 2048). (Facile)
 - Ajouter des stratégies, de manière propre ! 
 
