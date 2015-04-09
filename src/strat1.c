@@ -14,9 +14,10 @@ static int rando(int a, int b){
 
 dir strat(strategy s, grid g){
 	srand(time(NULL));
-	int r = rando(0, 4);
+	
 	dir d;
 	do{
+		int r = rando(0, 4);
 		switch(r){
 			case 0 : d = UP;
 				break;
