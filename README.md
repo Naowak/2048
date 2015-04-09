@@ -20,6 +20,14 @@ Projet de EDD
 	- 2048_graphic permet de jouer dans un interface graphique (encore en création)
 	- testRandom lance un algorithme qui va jouer de manière aléatoire
 
+------------
+
+Les stratégies :
+
+Pour créer le .so
+	- gcc -c -Wall -Werror -fpic nomlib.c
+	- gcc -shared -o nomlib.so nomlib.o
+
 -------------
 
 Ce qu'il reste à faire :
