@@ -1,13 +1,6 @@
 # 2048
 Projet de EDD
 -------------
-
-- Avant de chercher à compiler quoi que ce soit, veillez a ce que les bibliothèques SDL-1.2, SDL_Image et SDL_ttf soit installés sur votre machine.
-- Sinon, sur linux, vous pouvez les installés avec les commandes suivantes :
-	- sudo apt-get install libsdl1.2-dev   //Pour SDL-1.2
-	- sudo apt-get install libsdl-image1.2 libsdl-image1.2-dev  //Pour SDL_Image
-	- sudo apt-get install libsdl-ttf2.0-dev //Pour SDL_ttf
-
 - Dans le dossier principal (2048), creez un dossier build.
 - Dans ce dossier, executez ensuite les commandes suivantes :
 	- cmake ..
@@ -15,10 +8,14 @@ Projet de EDD
 - Vous trouverez les bibiliothèques libgrid.a et libgraphics.a dans 2048/build/src
 
 - Allez dans 2048/src
-- Ici sont situés les trois executables :
-	- grid_test permet de jouer dans la console
-	- 2048_graphic permet de jouer dans un interface graphique (encore en création)
-	- testRandom lance un algorithme qui va jouer de manière aléatoire
+- Vous pouvez utilisez la commande make pour compiler grid_test qui est permet de jouer sur la console, et testRandom qui joue seul de manière aléatoire.
+
+- Pour l'interface graphique : veillez a ce que les bibliothèques SDL-1.2, SDL_Image et SDL_ttf soit installés sur votre machine.
+- Sinon, sur linux, vous pouvez les installés avec les commandes suivantes :
+	- sudo apt-get install libsdl1.2-dev   //Pour SDL-1.2
+	- sudo apt-get install libsdl-image1.2 libsdl-image1.2-dev  //Pour SDL_Image
+	- sudo apt-get install libsdl-ttf2.0-dev //Pour SDL_ttf
+- Utilisez ensuite " make graphic " pour compiler l'interface graphique.
 
 ------------
 

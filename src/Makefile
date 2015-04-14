@@ -6,10 +6,12 @@ OUTFILE3= 2048_graphics
 OBJS1= grid_test.o
 OBJS2= testRandom.o
 OBJS3= 2048_graphics.o
-LDLIB= -lgrid -lgraphics -lm -lSDL -lSDL_image -lSDL_ttf 
+LDLIB= -lgrid -lm
+LDLIBGRAPHIC= -lgrid -lgraphics -lm -lSDL -lSDL_image -lSDL_ttf 
 LDFLAGS= -L ../build/src
 
-all : test1 test2 jeu_graphique
+all : test1 test2 
+graphic : jeu_graphique
 
 test1 : $(OUTFILE1)
 test2 : $(OUTFILE2)
@@ -22,7 +24,7 @@ $(OUTFILE2): $(OBJS2)
 		$(CC) $^ -o $@ $(LDFLAGS) $(LDLIB)
 
 $(OUTFILE3): $(OBJS3)
-		$(CC) $^ -o $@ $(LDFLAGS) $(LDLIB)
+		$(CC) $^ -o $@ $(LDFLAGS) $(LDLIBGRAPHIC)
 
 %o: %c
 	$(CC) -c $(CFLAGS) $< -o $@
